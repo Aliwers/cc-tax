@@ -1,5 +1,5 @@
-# Whitelist: по умолчанию не публикуется ничего.
-# Платный отчёт (r/) и лендинг живут только на хостинге, не в публичном репо.
+# Whitelist: nothing is published by default.
+# The paid report (r/) and the landing page live on the host only, never in the public repo.
 *
 !cc-tax.py
 !README.md

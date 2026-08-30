@@ -14,9 +14,9 @@ This skill measures that rent.
 ## Run it
 
 ```bash
-python3 cc-tax.py              # audits ~/.claude
-python3 cc-tax.py ~/other      # another config root
-python3 cc-tax.py --selftest   # verifies the frontmatter parser
+python3 cc-tax.py              # audits ~/.claude, plus ./.claude if present
+python3 cc-tax.py ~/other      # audits one config root
+python3 cc-tax.py --selftest   # verifies the parser and the scanner
 ```
 
 No dependencies, standard library only, one file. Read it before you run it.

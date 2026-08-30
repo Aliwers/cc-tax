@@ -36,9 +36,9 @@ python3 cc-tax.py
 ## Usage
 
 ```bash
-python3 cc-tax.py              # audits ~/.claude
-python3 cc-tax.py ~/other      # audits another config root
-python3 cc-tax.py --selftest   # verifies the frontmatter parser
+python3 cc-tax.py              # audits ~/.claude, plus ./.claude if present
+python3 cc-tax.py ~/other      # audits one config root
+python3 cc-tax.py --selftest   # verifies the parser and the scanner
 ```
 
 No dependencies, standard library only, single file. Read it before you run it.
@@ -61,9 +61,12 @@ home-install figure is a floor, not a total. The session you are actually in cos
 install plus whatever the repo you started in contributes:
 
 ```bash
-python3 cc-tax.py                    # home install
-python3 cc-tax.py ./.claude          # what this repo adds
+python3 cc-tax.py            # both roots at once, from inside the project
+python3 cc-tax.py ~/.claude  # just the home install
 ```
+
+With no arguments the script counts `~/.claude` and, if you are standing in a project
+that has one, `./.claude` — then prints each and their sum.
 
 This also changes what you do with the result. A skill that only ever fires in one
 repository is not a delete — it is a move. Relocated into that project's `.claude/`, it

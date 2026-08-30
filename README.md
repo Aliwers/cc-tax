@@ -54,9 +54,17 @@ ranking, which is why there is no dependency.
 plugins, and MCP tool schemas. MCP descriptions arrive from the server at connection
 time and are not measurable from disk at all.
 
+## As a skill
+
+`skill/SKILL.md` packages this as a Claude Code skill. Copy it to
+`~/.claude/skills/cc-tax/SKILL.md` and ask Claude what your config costs.
+
+Yes, it charges rent too — which is why its own description is two lines, not a paragraph.
+
 ## Why
 
-[The write-up](https://dev.to/) — how the measurement works, which popular components
-turn out to be dead on arrival, and what to delete first.
+[The write-up](https://dev.to/amzotec/my-claude-code-config-costs-9857-tokens-before-i-type-anything-3gin)
+— how the measurement works, which popular components turn out to be dead on arrival,
+and what to delete first.
 
 MIT.

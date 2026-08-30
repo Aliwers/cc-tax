@@ -1,9 +1,16 @@
 # Whitelist: nothing is published by default.
-# The paid report (r/) and the landing page live on the host only, never in the public repo.
+# The paid report (r/) lives on the host only and must NEVER be listed here.
+# Add files one by one. Never replace this with a blacklist — a forgotten file
+# leaves silently, and that has already happened once.
 *
-!cc-tax.py
-!README.md
-!LICENSE
 !.gitignore
+!.nojekyll
+!LICENSE
+!README.md
+!cc-tax.py
+!index.html
+!style.css
 !skill/
 !skill/SKILL.md
+!challenge/
+!challenge/index.html

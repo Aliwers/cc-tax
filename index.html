@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The 10,000 Token Tax — what your Claude Code config costs</title>
+<meta name="description" content="107 skills, 38 agents, 15 commands: 9,857 tokens resident in every session before you type anything. Free script to measure your own install, plus a field report on which components are dead on arrival.">
+<meta property="og:title" content="The 10,000 Token Tax">
+<meta property="og:description" content="Your Claude Code skills charge rent on every session. Here is the measurement, and the free script to run it on your own install.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧾</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+.hero{padding:56px 0 34px}
+.hero h1{font-size:clamp(36px,7vw,68px)}
+.hero h1 .num{color:var(--accent);font-family:var(--mono);font-weight:700;letter-spacing:-.04em}
+.dek{font-size:19px;color:var(--ink-2);margin:20px 0 0;max-width:56ch}
+.proof{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);
+  border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);
+  overflow:hidden;margin:32px 0}
+.pcell{flex:1 1 150px;padding:16px 20px;border-right:1px solid var(--line-2)}
+.pcell:last-child{border-right:0;background:var(--accent-soft)}
+.pk{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:6px}
+.pv{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--ink);
+  font-variant-numeric:tabular-nums;line-height:1.15}
+.pcell:last-child .pv{color:var(--accent-ink)}
+.buy{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px 30px;margin:36px 0;box-shadow:var(--shadow)}
+.buy h2{margin:0 0 6px;font-size:22px}
+.price{font-family:var(--mono);font-size:38px;font-weight:700;color:var(--ink);
+  letter-spacing:-.02em;margin:14px 0 4px}
+.price small{font-size:14px;font-weight:500;color:var(--muted);letter-spacing:0}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;
+  font-family:var(--display);font-weight:700;font-size:17px;letter-spacing:-.01em;
+  padding:13px 30px;border-radius:var(--radius);margin-top:14px;
+  box-shadow:0 1px 2px rgba(21,24,29,.12);transition:background .15s}
+.btn:hover{background:var(--accent-ink)}
+.btn-note{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin:12px 0 0}
+.toclist{list-style:none;padding:0;margin:18px 0 0}
+.toclist li{display:flex;gap:12px;margin-bottom:11px;color:var(--ink-2);font-size:16px}
+.toclist .n{font-family:var(--mono);font-size:12px;color:var(--accent);
+  padding-top:4px;flex:0 0 auto}
+.free{border:1px solid var(--line);border-left:2px solid var(--done);
+  background:var(--surface);border-radius:var(--radius);padding:22px 26px;
+  margin:32px 0;box-shadow:var(--shadow)}
+.free h3{margin-top:0;color:var(--done)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Claude Code · field report</div>
+  <h1>Your config costs <span class="num">9,857</span> tokens before you type anything.</h1>
+  <p class="dek">Every skill you install keeps its description in the context window for the
+  whole session — used or not. 107 skills, 38 agents and 15 commands turned out to be
+  charging rent on every single conversation. Here is the measurement, the free script to
+  run it on your own machine, and the list of components that were dead on arrival.</p>
+</header>
+
+<div class="proof">
+  <div class="pcell"><span class="pk">Skills</span><span class="pv">7,470</span></div>
+  <div class="pcell"><span class="pk">Agents</span><span class="pv">1,999</span></div>
+  <div class="pcell"><span class="pk">Commands</span><span class="pv">388</span></div>
+  <div class="pcell"><span class="pk">Every session</span><span class="pv">9,857</span></div>
+</div>
+
+<div class="free">
+  <h3>Measure yours first — free, no signup</h3>
+  <p>Do not take my number, take yours. One file, standard library only, short enough to
+  read before you run it against your home directory.</p>
+  <pre><code>curl -O https://raw.githubusercontent.com/Aliwers/cc-tax/main/cc-tax.py
+python3 cc-tax.py</code></pre>
+  <p style="margin-bottom:0">Prints your resident token cost and the ten heaviest
+  descriptions to trim first. <a href="https://github.com/Aliwers/cc-tax">Source on
+  GitHub</a> — MIT, take it and go.</p>
+</div>
+
+<h2>What the paid report adds</h2>
+<p>The script gives you a number. The report is the week of work behind understanding it:
+what to do about that number, and which of the most-recommended components silently do not
+work.</p>
+
+<ul class="toclist">
+  <li><span class="n">01</span><span><strong>The tax explained</strong> — why description
+  cost is permanent and body cost is not, and why 5% of your window is the wrong way to
+  think about it.</span></li>
+  <li><span class="n">02</span><span><strong>The measurement methodology</strong> — what the
+  script counts, what it cannot count, and why your real number is higher.</span></li>
+  <li><span class="n">03</span><span><strong>Where the cost hides</strong> — the heaviest
+  skill in the set is 29× the median and costs 56,453 tokens per trigger. It is also one of
+  the broken ones.</span></li>
+  <li><span class="n">04</span><span><strong>What does not work out of the box</strong> — the
+  section I would have paid for before installing anything. Seven components, what is
+  actually wrong with each, found by running them rather than reading their
+  READMEs.</span></li>
+  <li><span class="n">05</span><span><strong>Cutting 284 down to 104</strong> — the selection
+  criteria, everything deliberately skipped and why, and the five-step procedure for judging
+  the next skill someone recommends to you.</span></li>
+  <li><span class="n">06</span><span><strong>The rules-library trap</strong> — 123 files that
+  cost zero tokens and do nothing until deployed correctly. Both halves of that get
+  missed.</span></li>
+  <li><span class="n">07</span><span><strong>One config, two machines</strong> — why the
+  obvious git approach breaks, the symlink shape that works, and the three things that
+  silently do not travel.</span></li>
+</ul>
+
+<div class="buy">
+  <h2>The 10,000 Token Tax</h2>
+  <p style="margin-bottom:0">Field report, ~20 minutes of reading. Instant access, no
+  account, no email list.</p>
+  <div class="price">$5 <small>one time</small></div>
+  <a class="btn" href="https://amzotec.gumroad.com/l/token-tax">Get the report</a>
+  <p class="btn-note">Secure checkout via Gumroad · file delivered instantly, no account needed</p>
+</div>
+
+<h2>What this is not</h2>
+<p>Most of the components measured here come from
+<a href="https://github.com/affaan-m/ecc">ECC</a> — a free, open, MIT-licensed repository of
+284 skills by Affaan Mustafa. <strong>This report contains none of those files and does not
+resell them.</strong> Clone the original; it costs nothing and you should.</p>
+<p>What is being sold is the part that is not in any README: the measurement, the numbers
+from a real 160-component install, the record of which components are broken or half-dead,
+and the reasoning behind cutting 284 down to 104. If that is not worth $5 to you, take the
+free script and skip the rest — it is genuinely most of the value.</p>
+
+<h2>Who wrote this</h2>
+<p>I run this config daily across two machines. The report is a by-product of a 48-hour
+challenge: build a small digital product and make at least one sale, start to finish, in
+public. <a href="/challenge/">The
+full log of that attempt is here</a> — including whether it worked.</p>
+
+<footer>
+  <span>The 10,000 Token Tax</span>
+  <span>Measured on Claude Code 2.1.250 · August 2026</span>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
+</head>
+<body>
+<title>One Cent Plus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+
+<style>
+:root{
+  --bg:#EFF1F2;
+  --surface:#FFFFFF;
+  --surface-2:#F6F7F8;
+  --ink:#15181D;
+  --ink-2:#3D444E;
+  --muted:#666E79;
+  --line:rgba(21,24,29,.13);
+  --line-2:rgba(21,24,29,.07);
+  --accent:#A6552B;
+  --accent-ink:#8C4522;
+  --accent-soft:rgba(166,85,43,.11);
+  --done:#2C6E52;
+  --done-soft:rgba(44,110,82,.12);
+  --wait:#6B7280;
+  --wait-soft:rgba(107,114,128,.12);
+  --shadow:0 1px 2px rgba(21,24,29,.05), 0 8px 24px -12px rgba(21,24,29,.18);
+  --radius:4px;
+  --display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121418;
+    --surface:#191C21;
+    --surface-2:#1F232A;
+    --ink:#E7EAEE;
+    --ink-2:#BFC6CF;
+    --muted:#8E96A2;
+    --line:rgba(231,234,238,.15);
+    --line-2:rgba(231,234,238,.08);
+    --accent:#D2884F;
+    --accent-ink:#E39A61;
+    --accent-soft:rgba(210,136,79,.14);
+    --done:#5FB58C;
+    --done-soft:rgba(95,181,140,.14);
+    --wait:#8E96A2;
+    --wait-soft:rgba(142,150,162,.14);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121418;
+  --surface:#191C21;
+  --surface-2:#1F232A;
+  --ink:#E7EAEE;
+  --ink-2:#BFC6CF;
+  --muted:#8E96A2;
+  --line:rgba(231,234,238,.15);
+  --line-2:rgba(231,234,238,.08);
+  --accent:#D2884F;
+  --accent-ink:#E39A61;
+  --accent-soft:rgba(210,136,79,.14);
+  --done:#5FB58C;
+  --done-soft:rgba(95,181,140,.14);
+  --wait:#8E96A2;
+  --wait-soft:rgba(142,150,162,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px 96px}
+
+/* ---------- header ---------- */
+.masthead{
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:24px;
+  padding:44px 0 26px;border-bottom:1px solid var(--line);
+}
+.mast-main{flex:1 1 340px;min-width:0}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  display:flex;align-items:center;gap:9px;margin-bottom:14px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--line);max-width:120px}
+h1{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(38px,6.2vw,64px);line-height:.98;letter-spacing:-.028em;
+  margin:0;text-wrap:balance;
+}
+h1 .cent{color:var(--accent)}
+.dek{
+  font-size:18px;color:var(--ink-2);margin:14px 0 0;max-width:56ch;
+}
+
+/* ---------- ledger strip ---------- */
+.ledger{
+  display:flex;flex-wrap:wrap;gap:0;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--surface);box-shadow:var(--shadow);
+  overflow:hidden;flex:0 1 400px;
+}
+.led{
+  flex:1 1 118px;padding:13px 16px;border-right:1px solid var(--line-2);
+}
+.led:last-child{border-right:0}
+.led-k{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px;
+}
+.led-v{
+  font-family:var(--mono);font-size:19px;font-weight:700;
+  color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.2;
+}
+.led-v small{font-size:12px;font-weight:500;color:var(--muted);display:block;letter-spacing:0}
+
+/* ---------- tabs ---------- */
+.tabsbar{
+  position:sticky;top:0;z-index:20;background:var(--bg);
+  border-bottom:1px solid var(--line);margin-bottom:36px;
+}
+.tabs{
+  display:flex;gap:2px;overflow-x:auto;scrollbar-width:thin;
+  padding:0 0 0;margin:0;list-style:none;
+}
+.tab{
+  appearance:none;background:none;border:0;border-bottom:2px solid transparent;
+  padding:15px 15px 13px;cursor:pointer;color:var(--muted);
+  font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:-.005em;
+  white-space:nowrap;display:flex;align-items:baseline;gap:8px;
+  transition:color .15s ease,border-color .15s ease;
+}
+.tab:hover{color:var(--ink-2)}
+.tab .num{
+  font-family:var(--mono);font-size:10.5px;font-weight:500;
+  color:var(--muted);font-variant-numeric:tabular-nums;
+}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.tab[aria-selected="true"] .num{color:var(--accent)}
+.tab:focus-visible{outline:2px solid var(--accent);outline-offset:-3px;border-radius:2px}
+.dot{
+  width:6px;height:6px;border-radius:50%;background:var(--wait);
+  align-self:center;flex:none;
+}
+.tab.is-done .dot{background:var(--done)}
+
+/* ---------- panels ---------- */
+[hidden]{display:none!important}
+.panel{animation:rise .28s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.panel{animation:none}}
+
+.phead{margin:0 0 30px}
+.ptitle{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(26px,3.4vw,34px);line-height:1.1;letter-spacing:-.022em;
+  margin:0;text-wrap:balance;
+}
+.psub{color:var(--muted);font-size:15.5px;margin:9px 0 0;max-width:62ch}
+
+.prose{max-width:68ch}
+.prose h3{
+  font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:-.012em;
+  margin:38px 0 12px;color:var(--ink);
+}
+.prose h4{
+  font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted);margin:30px 0 10px;
+}
+.prose p{margin:0 0 15px}
+.prose ul{margin:0 0 15px;padding-left:20px}
+.prose li{margin-bottom:8px}
+.prose a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+.prose a:hover{text-decoration-thickness:2px}
+.prose strong{font-weight:600;color:var(--ink)}
+code{
+  font-family:var(--mono);font-size:.86em;background:var(--surface-2);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 5px;
+}
+
+/* callout */
+.call{
+  border-left:2px solid var(--accent);background:var(--accent-soft);
+  padding:16px 20px;margin:22px 0;border-radius:0 var(--radius) var(--radius) 0;
+}
+.call .call-k{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent-ink);display:block;margin-bottom:7px;font-weight:500;
+}
+.call p{margin:0;font-size:16px}
+.call p + p{margin-top:10px}
+
+/* table */
+.tablewrap{overflow-x:auto;margin:20px 0 24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid var(--line-2);vertical-align:top}
+th{
+  font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--muted);background:var(--surface-2);
+}
+tbody tr:last-child td{border-bottom:0}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13.5px;white-space:nowrap}
+.pick{background:var(--accent-soft)}
+.pick td:first-child{font-weight:600}
+
+/* verdict cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:14px;margin:22px 0 26px}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:17px 18px;box-shadow:var(--shadow);
+}
+.card-k{
+  font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:9px;
+}
+.card p{margin:0;font-size:15px;line-height:1.5;color:var(--ink-2)}
+.card p strong{color:var(--ink)}
+
+/* status chip */
+.chip{
+  display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);
+  font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 9px;border-radius:100px;
+}
+.chip-done{background:var(--done-soft);color:var(--done)}
+.chip-wait{background:var(--wait-soft);color:var(--wait)}
+
+/* pending state */
+.pending{
+  border:1px dashed var(--line);border-radius:var(--radius);
+  padding:34px 30px;background:var(--surface-2);max-width:68ch;
+}
+.pending .chip{margin-bottom:16px}
+.pending h3{font-family:var(--display);font-weight:700;font-size:17px;margin:0 0 10px;letter-spacing:-.01em}
+.pending p{margin:0 0 14px;color:var(--ink-2);font-size:15.5px;max-width:58ch}
+.pending ul{margin:0;padding-left:19px;color:var(--muted);font-size:15px}
+.pending li{margin-bottom:7px}
+.pending li::marker{color:var(--accent)}
+
+.srcs{margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.srcs h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.srcs ol{margin:0;padding-left:20px;font-size:14px;color:var(--muted);max-width:74ch}
+.srcs li{margin-bottom:6px}
+.srcs a{color:var(--accent-ink)}
+
+footer{
+  margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--muted);
+  display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
+}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="mast-main">
+      <div class="eyebrow">Challenge log</div>
+      <h1>One&nbsp;Cent<span class="cent">&nbsp;Plus</span></h1>
+      <p class="dek">Build a small digital product, put it up for sale and make at least one sale. In forty-eight hours.</p>
+    </div>
+    <div class="ledger">
+      <div class="led">
+        <span class="led-k">Target</span>
+        <span class="led-v">$0.01<small>and up</small></span>
+      </div>
+      <div class="led">
+        <span class="led-k">Deadline</span>
+        <span class="led-v">48h<small>Aug 29–30, 2026</small></span>
+      </div>
+      <div class="led">
+        <span class="led-k">Success</span>
+        <span class="led-v">1<small>sale on record</small></span>
+      </div>
+      <div class="led">
+        <span class="led-k">Jurisdiction</span>
+        <span class="led-v">US<small>Stripe available</small></span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabsbar">
+    <div class="tabs" role="tablist" aria-label="Challenge phases">
+      <button class="tab is-done" role="tab" id="t1" aria-controls="p1" aria-selected="true"><span class="num">01</span>Challenge<span class="dot"></span></button>
+      <button class="tab is-done" role="tab" id="t2" aria-controls="p2" aria-selected="false"><span class="num">02</span>Preparation<span class="dot"></span></button>
+      <button class="tab is-done" role="tab" id="t3" aria-controls="p3" aria-selected="false"><span class="num">03</span>Build<span class="dot"></span></button>
+      <button class="tab is-done" role="tab" id="t4" aria-controls="p4" aria-selected="false"><span class="num">04</span>First launch<span class="dot"></span></button>
+      <button class="tab is-done" role="tab" id="t5" aria-controls="p5" aria-selected="false"><span class="num">05</span>Fixes<span class="dot"></span></button>
+      <button class="tab is-done" role="tab" id="t6" aria-controls="p6" aria-selected="false"><span class="num">06</span>Result<span class="dot"></span></button>
+      <button class="tab is-done" role="tab" id="t7" aria-controls="p7" aria-selected="false"><span class="num">07</span>Verdict<span class="dot"></span></button>
+    </div>
+  </nav>
+
+  <!-- ══════════ 01 ══════════ -->
+  <section class="panel" role="tabpanel" id="p1" aria-labelledby="t1">
+    <div class="phead">
+      <h2 class="ptitle">The brief, the research and what follows</h2>
+      <p class="psub">What is actually required, what the platform research turned up, and the plan that comes out of it.</p>
+    </div>
+
+    <div class="prose">
+      <h3>The brief</h3>
+      <p>Two days — today and tomorrow — to create a small digital product, put it on sale and earn <strong>at least one cent</strong>. Not “start earning” in the abstract, but a single recorded transaction.</p>
+
+      <div class="call">
+        <span class="call-k">Success criterion, clarified</span>
+        <p>Success means a <strong>sale on record</strong> — somebody paid. Money reaching a bank account inside the 48 hours is not required.</p>
+        <p>That distinction turned out to decide everything: no mass-market platform pays a new seller within two days, but a sale on one registers instantly.</p>
+      </div>
+
+      <h3>Research</h3>
+
+      <h4>How the data was gathered</h4>
+      <p>The <code>deep-research</code> skill expects firecrawl or exa MCP — neither is connected, so this ran on web search and direct page fetches. Part of what came back was low-grade SEO filler, so every payout figure was re-checked against the platforms' own help pages. Where a claim rests on a single source, it is marked as such.</p>
+
+      <h4>The fork that decided everything</h4>
+      <p>Gumroad holds money for <strong>at least 7 days</strong>, pays out no less than <strong>$10</strong>, and puts new sellers through an extra review on top. Every platform has delays of the same shape. Hence the clarified criterion above — without it the task is unsolvable in principle.</p>
+
+      <h4>General-purpose platforms</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Platform</th><th>Fee</th><th>Payouts</th><th>US sales tax</th></tr></thead>
+          <tbody>
+            <tr><td>Payhip</td><td class="num">5% + processing ~2.9%+$0.30</td><td class="num">immediate</td><td>seller's problem</td></tr>
+            <tr><td>Gumroad</td><td class="num">10% + $0.50 · 30% via Discover</td><td class="num">Fridays, 7-day hold, $10 min</td><td>Merchant of Record</td></tr>
+            <tr><td>Lemon Squeezy</td><td class="num">5% + $0.50, +1.5% international</td><td class="num">twice a month</td><td>Merchant of Record</td></tr>
+            <tr><td>Ko-fi</td><td class="num">5% on the free plan</td><td class="num">—</td><td>seller's problem</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>On the pairing of instant payout and low fee, Payhip leads — but it is also the platform with the fewest primary sources behind it. That figure comes from comparison round-ups.</p>
+
+      <h4>Developer-facing platforms</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Platform</th><th>Moderation</th><th>Terms</th><th>Fits in 48h</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td>Agensi</td><td class="num">automated security scan</td><td class="num">70% to the author, paid via Stripe</td><td class="num">yes</td></tr>
+            <tr><td>MCP Market, claudemarketplaces and others</td><td class="num">listing directories</td><td class="num">traffic, no payments</td><td class="num">yes</td></tr>
+            <tr><td>GitHub Marketplace</td><td class="num">1–3 weeks per the docs, 2–6 in practice</td><td class="num">no SLA</td><td class="num">no</td></tr>
+            <tr><td>CodeCanyon</td><td class="num">manual review</td><td class="num">no 2026 figures found</td><td class="num">no</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Agensi</strong> accepts paid <code>SKILL.md</code> files with an automated check instead of a manual queue — the only moderation model that fits inside the deadline. One caveat: their payout schedule and country requirements are not published, and the source is essentially the platform itself.</p>
+
+      <h4>The option with no platform at all</h4>
+      <p>A Stripe Payment Link plus a landing page: no moderation, processing fees only, money lands in your own Stripe account. The downside is zero built-in traffic.</p>
+
+      <h3>What follows</h3>
+
+      <div class="grid">
+        <div class="card">
+          <span class="card-k">Jurisdiction</span>
+          <p><strong>The US clears the country blockers.</strong> Stripe Connect works, and the exclusion list — Brazil, India, Indonesia, Malaysia, Mexico, the Philippines, Thailand — does not apply here.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Tax</span>
+          <p><strong>US sales tax changes the arithmetic.</strong> Payhip does not handle it — selling from the US, that falls on the seller. Gumroad and Lemon Squeezy absorb it as Merchant of Record.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Setup</span>
+          <p><strong>Payments and traffic come apart.</strong> A Stripe Payment Link removes moderation; Agensi and the directories supply an audience already looking for this kind of thing.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">The real risk</span>
+          <p><strong>The bottleneck is traffic, not building.</strong> A product with no audience makes zero sales however good it is. Two days is not enough for organic reach.</p>
+        </div>
+      </div>
+
+      <p>The product comes from a real asset rather than an idea invented for the occasion: 108 skills, the experience of writing them, and a working setup for syncing one config across two machines. The audience that buys this is already gathered on the Claude Code directories.</p>
+    </div>
+
+    <div class="srcs">
+      <h4>Sources</h4>
+      <ol>
+        <li><a href="https://gumroad.com/help/article/13-getting-paid">Getting paid by Gumroad</a> — 7-day hold, $10 minimum, review of new sellers</li>
+        <li><a href="https://help.gumroad.com/article/330-stripe-connect">Connect your Stripe account to Gumroad</a> — countries without Stripe Connect</li>
+        <li><a href="https://www.agensi.io/learn/agent-skills-marketplace-sell-your-skills">Agensi — Sell Your AI Agent Skills</a> — 70% to the author, automated security scan</li>
+        <li><a href="https://github.com/orgs/community/discussions/174681">GitHub community — Marketplace listing review timeline</a> — review times, absence of an SLA</li>
+        <li><a href="https://payhip.com/blog/gumroad-alternatives/">Payhip — Gumroad alternatives</a> and <a href="https://www.wearefounders.uk/gumroad-fees-2026-what-sellers-actually-pay-per-sale/">Gumroad Fees 2026</a> — fees, cross-checked against each other</li>
+        <li><a href="https://mcpmarket.com/tools/skills">MCP Market</a>, <a href="https://claudemarketplaces.com/">claudemarketplaces.com</a>, <a href="https://skillsplayground.com/">Skills Playground</a> — directories for traffic</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 ══════════ -->
+  <section class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+    <div class="phead">
+      <h2 class="ptitle">Getting ready</h2>
+      <p class="psub">What is being sold, at what price, how the money is taken, and what had to exist before any of it.</p>
+    </div>
+
+    <div class="prose">
+      <h3>The product</h3>
+      <p><strong>The 10,000 Token Tax</strong> — an account of what your own Claude Code config costs before you type a character. Every installed skill, agent and command keeps its description in the context window for the whole session, whether or not it ever fires. That is not a loading cost. That is rent.</p>
+      <p>The product is assembled out of an existing asset rather than invented from nothing: 107 skills, 38 agents and 15 commands accumulated over several months, and the measured bill for them.</p>
+
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Part</th><th>What it is</th><th>Role</th></tr></thead>
+          <tbody>
+            <tr><td><code>cc-tax.py</code></td><td class="num">one file, standard library only</td><td>the tool — measures your own rent, not someone else's</td></tr>
+            <tr><td>The article</td><td class="num">free, public</td><td>traffic, and proof the author knows the subject</td></tr>
+            <tr class="pick"><td>The report</td><td class="num">$5, one-time</td><td>the thing being sold</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The script is given away inside the article: it is short, you can read the whole of it before pointing it at your home directory, and that is the only sane way to run a stranger's script. What is paid for is the analysis — what to do with the number you get back, and the reasoning behind cutting 284 components down to 104.</p>
+
+      <h3>Taking the money</h3>
+      <p>The setup from phase 01 stands: a <strong>Stripe Payment Link</strong> plus an own landing page. No moderation, processing fees only, the sale registers instantly. The directories carry traffic but never touch payments.</p>
+
+      <h4>What Stripe requires for a US account</h4>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Requirement</th><th>Detail</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Account type</td><td class="num">Individual / sole proprietor</td><td class="num">no company needed</td></tr>
+            <tr><td>SSN</td><td class="num">last 4 digits at onboarding, full number and photo ID at verification</td><td class="num">in hand</td></tr>
+            <tr><td>US address and phone</td><td class="num">home address, date of birth</td><td class="num">in hand</td></tr>
+            <tr class="pick"><td>Bank account</td><td class="num">personal checking: routing + account number</td><td class="num">works</td></tr>
+            <tr><td>Product details</td><td class="num">URL of the sales page, description, statement descriptor</td><td class="num">landing ready</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="call">
+        <span class="call-k">A personal account is enough</span>
+        <p>For an individual account Stripe does not ask for a separate business account. What it wants is an <strong>account</strong>, not a card: the form takes the routing and account numbers of an ordinary checking account. A debit card can be added on top for Instant Payouts — minutes instead of days, at roughly 1.5%.</p>
+        <p>One constraint: the name on the account has to match the name on the Stripe account, and the account has to sit at an ordinary bank. With Chime, Cash App and prepaid accounts, ACH payouts get rejected often enough to matter.</p>
+      </div>
+
+      <h4>Timing — and why it does not matter</h4>
+      <p>The account activates in minutes and the Payment Link is issued straight after. The first payout arrives 7–14 days after the first payment, the standard rolling period for new US accounts. Under the criterion clarified in phase 01 the transaction itself is what counts, so the payout schedule has no bearing on the result.</p>
+
+      <h3>Readiness</h3>
+      <div class="grid">
+        <div class="card">
+          <span class="card-k">Done</span>
+          <p><strong>Product and landing.</strong> <code>cc-tax.py</code> is written and tested, the article is ready to publish, the sales page is built, and the hidden delivery page behind the payment exists.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Done</span>
+          <p><strong>The log is open.</strong> The landing page promises a public account of the attempt but pointed at a private artifact. This log now sits on the site itself at <code>/challenge/</code> and is rebuilt from the same source by a script.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">In progress</span>
+          <p><strong>Stripe.</strong> Every requirement is covered by what is already on hand. What is left: open the account, issue the $5 Payment Link, and put it where the placeholder sits in the landing page button.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">In progress</span>
+          <p><strong>Hosting.</strong> The landing page and the report go to Vercel, where the sources stay private. What is left is signing in and deploying.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Not started</span>
+          <p><strong>Traffic.</strong> The main risk named back in phase 01. The channels — publishing the article, and the Claude Code directories — have not been touched yet.</p>
+        </div>
+      </div>
+
+      <div class="call">
+        <span class="call-k">The price, decided</span>
+        <p><strong>$5 stands.</strong> This audience pays $20 a month for a Claude subscription; a five-dollar threshold is not a barrier for them, it is a signal that there is something inside. Dropping to $1 would hand Stripe a third of the revenue — $0.33 on the dollar — and cheapen the product in exchange for a conversion lift it probably would not deliver.</p>
+      </div>
+
+      <h3>The incident before launch</h3>
+      <p>While preparing the Payment Link it emerged that <strong>the paid report had been given away free the whole time</strong>. It was committed to the public repository <code>Aliwers/cc-tax</code> and plainly visible in the file list, while the “Source on GitHub” link sits on the landing page itself — putting the path to the paid content two clicks from the “Get the report” button. It also turned out GitHub Pages had been enabled for a while and the landing page was already live: the URL Stripe asks for existed, it had simply been forgotten.</p>
+      <p>The secret path is treated as burned for good. It went into the history of a public repository, and GitHub keeps objects even after a history rewrite — a force-push would have bought the feeling of safety rather than safety itself.</p>
+
+      <div class="call">
+        <span class="call-k">What changed</span>
+        <p>The report got a new secret path, and the <code>r/</code> directory was taken out of git. <code>.gitignore</code> was rewritten as a whitelist: nothing is published by default except the script, the README and the licence. Listing prohibitions is unreliable — a forgotten file goes out silently — while the inverted policy fails in the safe direction.</p>
+        <p>The hosts were split by role: the public repository carries the free script and nothing else, while the landing page and the paid report go to Vercel. The old repository is being deleted outright, the only way to remove an object already pushed to GitHub.</p>
+      </div>
+
+      <div class="call">
+        <span class="call-k">Language</span>
+        <p>This log was written in Russian while the product and the landing page are in English — a buyer following “the full log of that attempt” would have hit a wall of text they could not read, from a page whose whole argument is that the attempt happens in the open. The log has been translated in full; the site is now English end to end.</p>
+      </div>
+
+      <div class="call">
+        <span class="call-k">What it cost</span>
+        <p>The mistake was structural rather than careless: paid and free material sat in one directory, and a single <code>git add -A</code> was enough for the boundary to disappear. With nothing sold yet the cost is zero — it was caught before the first sale rather than after it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+    <div class="phead">
+      <h2 class="ptitle">Build</h2>
+      <p class="psub">What actually got made, what it cost in hours, and every place the plan bent.</p>
+    </div>
+
+    <div class="prose">
+      <h3>What exists now</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Artefact</th><th>Size</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td><code>cc-tax.py</code></td><td class="num">116 lines</td><td>standard library only, <code>--selftest</code> covers six frontmatter cases</td></tr>
+            <tr class="pick"><td>The report</td><td class="num">7 sections, 26 KB</td><td>self-contained HTML, styles inlined, opens offline</td></tr>
+            <tr><td>Landing page</td><td class="num">143 lines</td><td>proof and free script above the buy button, not below it</td></tr>
+            <tr><td>The article</td><td class="num">1,085 words</td><td>gives away the script and every finding</td></tr>
+            <tr><td>Cover and thumbnail</td><td class="num">1920×1080, 600×600</td><td>rendered from HTML through a headless browser</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>The measurement everything rests on</h3>
+      <p>One number carries the product, the article headline and the cover: <strong>9,857 tokens</strong> resident in every session before a character is typed — 7,470 for 107 skill descriptions, 1,999 for 38 agents, 388 for 15 commands. Body weight is a separate story: ~322,990 tokens across all skills, median 1,932, and a single outlier at <strong>56,453</strong> — <code>continuous-learning-v2</code>, which is also one of the half-broken ones.</p>
+      <p>The estimate is characters ÷ 4. A real tokenizer would shift the absolute figures by a few percent and reorder nothing, which is why the script has no dependency. Saying so plainly in the article matters more than precision: the first commenter will ask, and a defensible method beats a defended one.</p>
+
+      <h3>Which skills earned their place</h3>
+      <div class="call">
+        <span class="call-k">Almost none of them</span>
+        <p>A product about the cost of 107 skills was built essentially without them. <code>deep-research</code> — the obvious candidate — needs firecrawl or exa MCP and degraded to ordinary web search, exactly the failure documented in the report itself. What did the work was unglamorous: shell, Python, a headless browser for the images, and <code>gh</code> for the repository.</p>
+        <p>This is a finding, not an anecdote. The skills that justified their rent this session were the ones wired to something real; the prose-only ones never fired.</p>
+      </div>
+
+      <h3>Where the plan bent</h3>
+      <div class="grid">
+        <div class="card">
+          <span class="card-k">Self-inflicted</span>
+          <p><strong>The report was deleted mid-rebuild.</strong> A careless <code>rm -rf</code> while restructuring directories took the finished file with it. Rewritten from scratch — an hour gone, no lasting damage, but the whole cost of moving fast in a directory holding the only copy.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Platform</span>
+          <p><strong>GitHub Pages ignores files starting with <code>_</code>.</strong> Jekyll treats them as internal. The shared stylesheet was named <code>_shared.css</code> and silently never published. Renamed, plus a <code>.nojekyll</code> marker.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Platform</span>
+          <p><strong>Gumroad rejected the cover twice.</strong> First because a browser screenshot carries no DPI field and the form demands 72; then because 1280×720 sits exactly on the stated minimum. Fixed by writing the density explicitly and rendering at 1920×1080.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Environment</span>
+          <p><strong>Chrome would not upload anything to Gumroad.</strong> An extension was swallowing the file dialog. Twenty minutes lost before switching browsers; Safari worked first try. Worth reaching for sooner than a diagnosis.</p>
+        </div>
+      </div>
+
+      <h3>Time</h3>
+      <p>The plan allowed roughly nine hours across six blocks. Building the artefacts took about six and matched the estimate closely. Everything over ran on the incident from phase 01 and on platform friction — the upload dialogs, the image requirements, the account onboarding — none of which appears in any estimate and all of which is where the day actually went.</p>
+
+      <div class="call">
+        <span class="call-k">One line worth keeping</span>
+        <p>The build was never the risk. Every hour that hurt was spent on things outside the editor: a leak caused by mixing paid and free files in one directory, a browser extension, an image spec, a review queue. The plan called the traffic the danger and was right about the code — it just did not price the friction around it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" role="tabpanel" id="p4" aria-labelledby="t4" hidden>
+    <div class="phead">
+      <h2 class="ptitle">First launch</h2>
+      <p class="psub">Published on 29 August. What went live, what had to be rebuilt hours before, and what the numbers are.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Stripe did not make it</h3>
+      <p>The Payment Link was blocked at the last step: <em>“Payments not yet enabled — complete required tasks to enable live payments.”</em> The account had gone into manual review. Phase 02 recorded that activation takes minutes; for this account it did not.</p>
+      <p>The decisive detail was the calendar. It was <strong>Saturday</strong>, the deadline fell on Sunday night, and manual review for a new US account normally resolves in one or two business days — that is Monday. The plan had scheduled the fallback decision for the twelve-hours-remaining mark; waiting for it would have burned the night for a verdict that was already predictable.</p>
+
+      <div class="call">
+        <span class="call-k">Switched to Gumroad</span>
+        <p>It takes a seller immediately, hosts the file itself and mails it to the buyer. Higher fee — roughly $1.00 on a $5 sale against Stripe's $0.45 — and a seven-day payout hold, neither of which touches the success criterion agreed in phase 01: the transaction counts, not the arrival of the money.</p>
+        <p>It also removed an entire class of failure. With delivery handled by the platform, the secret path, the post-payment redirect and the whole hand-rolled delivery mechanism — the exact thing that leaked in phase 02 — simply stopped existing.</p>
+      </div>
+
+      <h3>The repository, rebuilt clean</h3>
+      <p>The article's central hook is a <code>curl</code> command that fetches the free script. It returned 404: the repository had been made private hours earlier while stopping the leak. Deleting it outright was impossible — the token carries no <code>delete_repo</code> scope — so the old one was renamed to <code>cc-tax-archive-private</code>, locking the tainted history inside a private repository, and a clean public <code>cc-tax</code> was created on the freed name.</p>
+      <p>A check before publishing caught what an earlier check had missed: the report still sat in <code>refs/remotes/origin/main</code>, the pointer to the old repository. The earlier verification had inspected the working branch and reported “clean” without saying it had looked nowhere else. The remote was detached and the objects pruned before anything was pushed.</p>
+
+      <div class="call">
+        <span class="call-k">A verification that names its own scope</span>
+        <p>Two claims of “all clear” failed the same way this weekend — once on the CDN cache, once on git history. Both were true about the thing examined and silent about the thing that mattered. Checking one URL from one Fastly node, or one branch out of three refs, is not a clean bill of health; it is one observation, and it should be reported as one.</p>
+      </div>
+
+      <h3>What is live</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Link</th><th>Role</th><th>State</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td>dev.to article</td><td class="num">the only traffic channel</td><td class="num">published 29 Aug</td></tr>
+            <tr><td><code>github.com/Aliwers/cc-tax</code></td><td class="num">free script, the hook</td><td class="num">public, MIT</td></tr>
+            <tr><td>Gumroad product page</td><td class="num">payment and delivery</td><td class="num">live, $5</td></tr>
+            <tr><td>Landing page</td><td class="num">optional second entry</td><td class="num">not deployed</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The buyer's path was walked end to end before publishing: article renders with the code block intact, both links resolve, the script downloads by the exact command printed in the text, its self-test passes, and the product page shows $5 with a working button. The landing page never got deployed — Vercel needed an interactive login, and once the article pointed straight at Gumroad it stopped being on the critical path.</p>
+
+      <h3>Numbers</h3>
+      <div class="grid">
+        <div class="card">
+          <span class="card-k">Sales</span>
+          <p><strong>0</strong> at the time of writing. The article went up minutes ago; there has not yet been time for anyone to read it, let alone buy.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Money spent</span>
+          <p><strong>$0.</strong> No domain, no ads, no paid hosting. The traffic budget was zero by choice and stayed zero.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Channels</span>
+          <p><strong>One.</strong> A single article on dev.to. The Claude Code directories are still untouched — a second shot that has not been fired.</p>
+        </div>
+      </div>
+
+      <div class="call">
+        <span class="call-k">What the outcome now depends on</span>
+        <p>Nothing left to build. Product, payment and delivery all work, and the risk sits exactly where phase 01 put it: whether one article finds a hundred or two hundred of the right readers. Everything solvable by working harder has been solved; what remains is not.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" role="tabpanel" id="p5" aria-labelledby="t5" hidden>
+    <div class="phead">
+      <h2 class="ptitle">Fixes</h2>
+      <p class="psub">What broke after the article went up, what was repaired, and what was left alone on purpose.</p>
+    </div>
+
+    <div class="prose">
+      <h3>Caught minutes after publishing</h3>
+      <p>The article went live and a link check immediately found a dead one — on the product page itself. The description promises a free script and points at <code>github.com/Aliwers/cc-tax</code>; the repository had been made private hours earlier while stopping the leak, so a buyer clicking the one link meant to build trust would land on a 404.</p>
+      <p>Fixed by rebuilding the repository clean. Outright deletion was impossible — the token has no <code>delete_repo</code> scope — so the old one was renamed to <code>cc-tax-archive-private</code>, locking the tainted history inside a private repository, and a fresh public <code>cc-tax</code> took the freed name. Every link in the article and on the product page kept working because the name never changed.</p>
+
+      <div class="call">
+        <span class="call-k">The check that had lied</span>
+        <p>Before pushing, a verification found the report still sitting in <code>refs/remotes/origin/main</code> — the pointer to the old repository. An earlier check had inspected the working branch, reported “clean”, and never mentioned it had looked nowhere else.</p>
+        <p>Same failure shape as the CDN check hours before: one Fastly node answered 404 while another still served the paid file from cache, and “all clear” was declared off a single observation. Both claims were true about the thing examined and silent about the thing that mattered.</p>
+      </div>
+
+      <h3>Repaired during the build</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Problem</th><th>Cause</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td>Paid report published free</td><td>paid and free files in one directory, one <code>git add -A</code></td><td>whitelist <code>.gitignore</code>, new secret path, old one burned</td></tr>
+            <tr><td>Stylesheet silently missing</td><td>GitHub Pages runs Jekyll, which skips <code>_</code>-prefixed files</td><td>renamed, plus a <code>.nojekyll</code> marker</td></tr>
+            <tr><td>Cover rejected twice</td><td>no DPI field in a browser screenshot; 1280×720 sat exactly on the minimum</td><td>density written explicitly, re-rendered at 1920×1080</td></tr>
+            <tr><td>Uploads silently failing</td><td>a Chrome extension swallowing the file dialog</td><td>switched browser; Safari worked first try</td></tr>
+            <tr><td>Product fields reverting</td><td>Gumroad discards edits when moving between tabs without saving</td><td>save on each tab, reload, verify before publishing</td></tr>
+            <tr><td>Report unreadable as a standalone file</td><td>it pulled styles from an external stylesheet</td><td>CSS inlined; the file now opens offline</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Changed by circumstance, not by choice</h3>
+      <p><strong>Stripe was replaced by Gumroad.</strong> The account went into manual review on a Saturday with the deadline on Sunday, so the fallback was pulled forward rather than waiting for the twelve-hour mark the plan specified. This removed an entire class of failure with it: with delivery handled by the platform, the secret path, the post-payment redirect and the hand-rolled delivery — the exact mechanism that leaked — stopped existing.</p>
+
+      <div class="call">
+        <span class="call-k">Left alone on purpose</span>
+        <p><strong>The landing page was never deployed.</strong> Vercel needed an interactive login, and once the article pointed straight at Gumroad the landing page stopped being on the critical path. It is built, it works locally, and it is not live — a deliberate cut, not an oversight.</p>
+        <p><strong>The Claude Code directories were not filed to.</strong> Listings are written and the free script now ships as a skill so there is something to submit, but nobody has submitted it. The second traffic channel exists on paper only.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" role="tabpanel" id="p6" aria-labelledby="t6" hidden>
+    <div class="phead">
+      <h2 class="ptitle">Result</h2>
+      <p class="psub">The numbers as they stand. The deadline has not passed — this is a reading taken in flight, not a final score.</p>
+    </div>
+
+    <div class="prose">
+      <div class="call">
+        <span class="call-k">Status of this page</span>
+        <p>Written hours after the article went up, with roughly a day left on the clock. <strong>Everything here is provisional and will be rewritten when the deadline closes.</strong> Publishing a result page before the result exists is a way of being honest about the shape of the attempt, not a claim that it is over.</p>
+      </div>
+
+      <h3>Sales</h3>
+      <div class="grid">
+        <div class="card">
+          <span class="card-k">Sales</span>
+          <p><strong>0.</strong> No transaction has been recorded. The success criterion of the challenge — one sale on record — is <strong>not met</strong>.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Revenue</span>
+          <p><strong>$0.00.</strong> Gross, net, fees — all zero, because there is nothing to take a fee from.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Spent</span>
+          <p><strong>$0.00.</strong> No domain, no ads, no paid hosting, no paid tooling. The traffic budget was zero by choice and never moved.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Time</span>
+          <p><strong>~10 hours</strong> against a 9-hour estimate. The estimate was close for building and wrong about everything around it.</p>
+        </div>
+      </div>
+
+      <h3>What is live and working</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Asset</th><th>State</th><th>Verified</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td>Article on dev.to</td><td class="num">published</td><td>renders, code block intact, both links resolve</td></tr>
+            <tr><td>Product page, $5</td><td class="num">live</td><td>page returns 200, price and button confirmed</td></tr>
+            <tr><td>Free script, public repo</td><td class="num">live, MIT</td><td>downloads by the exact command printed in the article, self-test passes</td></tr>
+            <tr><td>The skill</td><td class="num">shipped</td><td>in the public repository, ready to submit to directories</td></tr>
+            <tr><td>Report file</td><td class="num">on Gumroad</td><td>self-contained, delivered by the platform</td></tr>
+            <tr><td>Landing page</td><td class="num">not deployed</td><td>built and working locally, deliberately cut</td></tr>
+            <tr><td>Directory listings</td><td class="num">not submitted</td><td>texts written, nothing filed</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Traffic</h3>
+      <p><strong>Not measurable from here.</strong> Analytics live inside the dev.to account and Gumroad's dashboard; this log has no access to either. What is known is structural rather than numeric: <strong>one channel is active out of four considered</strong> — a single article. The directories were prepared and never filed to. The landing page, which would have been the second entry point, was never deployed.</p>
+      <p>Conversion cannot be calculated without a denominator. With zero sales the only honest statement is that the numerator is zero and the denominator is unknown.</p>
+
+      <div class="call">
+        <span class="call-k">What the zero does and does not mean</span>
+        <p>It does not mean the product failed to convert — that would require knowing how many people saw it. Hours after publication the likeliest reading is simply that too few people have looked yet. The distinction matters for phase 07: a product nobody bought and a product nobody saw fail in different ways and teach different lessons.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" role="tabpanel" id="p7" aria-labelledby="t7" hidden>
+    <div class="phead">
+      <h2 class="ptitle">Verdict on the whole challenge</h2>
+      <p class="psub">Which hypotheses from phase 01 held, which broke, and what would be done differently. Written before the deadline closes.</p>
+    </div>
+
+    <div class="prose">
+      <div class="call">
+        <span class="call-k">Status of this page</span>
+        <p>A verdict written while the clock is still running. It judges the <strong>decisions</strong>, which are already final, rather than the <strong>outcome</strong>, which is not. When the deadline passes it gets rewritten with the answer.</p>
+      </div>
+
+      <h3>The hypotheses, checked</h3>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Claim from phase 01</th><th>Verdict</th><th>Evidence</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td>The bottleneck is traffic, not building</td><td class="num">held</td><td>the product, payment and delivery were all working within a day; the result now hangs on one thing nobody controls</td></tr>
+            <tr><td>Stripe Payment Link is the fast path</td><td class="num">broke</td><td>the account went into manual review on a Saturday and never issued a link</td></tr>
+            <tr><td>Directories supply the audience</td><td class="num">untested</td><td>listings were written, nothing was ever submitted</td></tr>
+            <tr><td>No platform pays a new seller inside 48h</td><td class="num">held</td><td>Gumroad holds for 7 days; the clarified criterion is what keeps the task solvable</td></tr>
+            <tr><td>Build from an existing asset, not an idea</td><td class="num">held</td><td>the whole product came out of a config already in daily use; inventing one would not have fit the window</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>What actually worked</h3>
+      <p>Not the plan from phase 01. That plan was <em>Stripe plus directories</em>, and neither half carried the launch. What carried it was <strong>Gumroad plus a single article</strong> — a combination that appears nowhere in the original research, assembled in the last hours because the first path closed.</p>
+      <p>Worth naming precisely: the research was not wrong about the platforms. It was wrong about which risk would bite. It priced moderation queues on marketplaces and missed that the payment processor itself has a queue.</p>
+
+      <div class="call">
+        <span class="call-k">The most useful decision</span>
+        <p><strong>Giving the tool away.</strong> The script is the whole script, published free and open, and the article withholds nothing. It cost the illusion of leverage and bought the only thing a stranger can act on: a number they can reproduce on their own machine in ten seconds. A teaser would have been easier to write and worth nothing.</p>
+      </div>
+
+      <h3>What took longer than expected</h3>
+      <p>The nine-hour estimate was accurate for building and silent about everything else. The overrun came entirely from things outside the editor: a leak caused by mixing paid and free files in one directory, a browser extension eating upload dialogs, an image spec rejecting a file twice, a payment account entering review, form state discarded between tabs.</p>
+      <p>None of that appears in any plan, and all of it is where the day went. The generalisable version: <strong>estimate the friction, not the work.</strong> The work is the part you can predict.</p>
+
+      <h3>Three lessons that cost something to learn</h3>
+      <div class="grid">
+        <div class="card">
+          <span class="card-k">Boundaries, not prohibitions</span>
+          <p><strong>Whitelist beats blacklist</strong> for anything that separates paid from free. Listing what must not ship fails silently the moment you forget a file. The inverted rule fails in the safe direction, and it is one line of config.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Scope your claims</span>
+          <p><strong>A check must name what it examined.</strong> Twice today “all clear” meant “clear at the one place I looked” — one CDN node out of many, one git ref out of three. Both were true and both were misleading, which is worse than being wrong out loud.</p>
+        </div>
+        <div class="card">
+          <span class="card-k">Fallbacks are calendar-driven</span>
+          <p><strong>The trigger was set at twelve hours remaining and should have been set on the calendar.</strong> A manual review starting Saturday resolves Monday, whatever the countdown says. Waiting for the planned mark would have burned a night on a predictable answer.</p>
+        </div>
+      </div>
+
+      <h3>Would this be worth repeating</h3>
+      <p>As an exercise in shipping, yes: it produced a real tool, a real article and a real product in a day, from an asset that was sitting unused. As a way to make money, the honest answer is that <strong>the format hides the actual constraint</strong>. Forty-eight hours is enough to build anything small and nowhere near enough to build an audience — so the challenge quietly tests whether you already had one.</p>
+      <p>The version worth repeating inverts the order: spend the first day publishing something useful for free, and only then build the thing that gets sold to the people it brought. That is the same two artefacts in the opposite sequence, and it is the difference between a launch and a lottery ticket.</p>
+
+      <div class="call">
+        <span class="call-k">Still open</span>
+        <p>Stripe remains in review. If it clears, the product gets a second checkout alongside Gumroad and this log gets the comparison it could not make today — a real fee and payout schedule against a real alternative, rather than two help pages quoted side by side.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>One Cent Plus · challenge log</span>
+    <span>All 7 phases filled · interim, updates when the deadline closes</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var KEY = 'onecentplus.tab';
+
+  function select(id, store){
+    tabs.forEach(function(t){
+      var on = t.id === id;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (store) { try { localStorage.setItem(KEY, id); } catch (e) {} }
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ select(t.id, true); });
+    t.addEventListener('keydown', function(e){
+      var i = tabs.indexOf(t), n = null;
+      if (e.key === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
+      else if (e.key === 'ArrowLeft') n = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (e.key === 'Home') n = tabs[0];
+      else if (e.key === 'End') n = tabs[tabs.length - 1];
+      if (n) { e.preventDefault(); n.focus(); select(n.id, true); }
+    });
+  });
+
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  select(saved && document.getElementById(saved) ? saved : 't1', false);
+})();
+</script>
+
+</body>
+</html>

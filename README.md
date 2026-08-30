@@ -54,6 +54,24 @@ ranking, which is why there is no dependency.
 plugins, and MCP tool schemas. MCP descriptions arrive from the server at connection
 time and are not measurable from disk at all.
 
+## Your real number is the sum of two roots
+
+Skills, agents and commands also resolve from a project-level `.claude/` directory, so a
+home-install figure is a floor, not a total. The session you are actually in costs the home
+install plus whatever the repo you started in contributes:
+
+```bash
+python3 cc-tax.py                    # home install
+python3 cc-tax.py ./.claude          # what this repo adds
+```
+
+This also changes what you do with the result. A skill that only ever fires in one
+repository is not a delete — it is a move. Relocated into that project's `.claude/`, it
+stops billing every session that is not that project, and still works where you need it.
+
+Credit for the correction: [@vinhnguyenthanhdn](https://dev.to/vinhnguyenthanhdn) in the
+comments on the write-up.
+
 ## As a skill
 
 `skill/SKILL.md` packages this as a Claude Code skill. Copy it to
